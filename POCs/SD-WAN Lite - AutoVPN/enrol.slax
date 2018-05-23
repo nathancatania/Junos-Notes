@@ -1,0 +1,23 @@
+version 1.0;
+
+ns junos = "http://xml.juniper.net/junos/*/junos";
+ns xnm = "http://xml.juniper.net/xnm/1.1/xnm";
+ns jcs = "http://xml.juniper.net/junos/commit-scripts/1.0";
+import "../import/junos.xsl";
+
+match / {
+    <op-script-results> {
+        var $enroll_ca = {
+            <command> 'request security pki ca-certificate enroll ca-profile sdwan-profile';
+        }
+        var $generate_key_pair = {
+            <command> 'request security pki generate-key-pair certificate-id sdwan-local';
+        }
+        var $enroll_local = {
+            <command> 'request security pki local-certificate enroll ca-profile sdwan-profile certificate-id sdwan-local domain-name juniper.vpn email ncatania@juniper.vpn ip-address 20.20.20.2 subject DC=juniper.vpn,CN=srxce1,OU=engineering,O=juniper,L=melbourne,ST=australia,C=au challenge-password E2B42DC325CA34D0';
+        }
+        var $execute_enroll_ca = jcs:invoke($enroll_ca);
+        var $execute_generate_key_pair = jcs:invoke($generate_key_pair);
+        var $execute_enroll_local = jcs:invoke($enroll_local);
+    }
+}

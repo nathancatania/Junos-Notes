@@ -1,0 +1,48 @@
+<!--
+This is an example of using variables in ZTP templates for SkyEnterprise.
+Do not include these first 4 commented lines if you deploy this example.
+-->
+<device xmlns="http://juniper.net/zerotouch-bootstrap-server">
+  <unique-id>{{ serial }}</unique-id>
+  <configuration>
+    <config>
+      <configuration>
+        <system>
+          <host-name>{{ hostname }}</host-name>
+          <name-server>
+            <name>{{ dns_server_1 }}</name>
+          </name-server>
+          <name-server>
+            <name>{{ dns_server_1 }}</name>
+          </name-server>
+        </system>
+        <interfaces>
+           <interface delete="delete"/>
+              <name>fxp0</name>
+           </interface>
+           <interface>
+              <name>fxp0</name>
+              <unit>
+                 <name>0</name>
+                 <family>
+                    <inet>
+                       <address>
+                          <name>{{ oob_management_ip_and_cidr }}</name>
+                       </address>
+                    </inet>
+                 </family>
+              </unit>
+           </interface>
+        </interfaces>
+        <routing-options>
+           <static>
+              <route>
+                 <name>0.0.0.0/0</name>
+                 <next-hop>{{ next_hop_ip }}</next-hop>
+              </route>
+            </static>
+        </routing-options>
+      </configuration>
+    </config>
+  </configuration>
+</device>
