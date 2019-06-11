@@ -9,13 +9,13 @@
           <host-name>{{ hostname }}</host-name>
           <time-zone>{{ timezone }}</time-zone>
                 <root-authentication>
-                    <encrypted-password>$5$Buiz7SSK$aUvw7vfxEw.M.zj/3E8BMGJSOaNndXU8zufjZuCGsdB</encrypted-password>
+                    <encrypted-password>{{ encrypted_root_password }}</encrypted-password>
                 </root-authentication>
           <name-server>
-            <name>8.8.8.8</name>
+            <name>{{ dns_nameserver_1 }}</name>
           </name-server>
           <name-server>
-            <name>8.8.4.4</name>
+            <name>{{ dns_nameserver_2 }}</name>
           </name-server>
           <login>
             <user>
@@ -33,8 +33,9 @@
             </ssh>
             <netconf>
               <ssh>
-                        </ssh>
+              </ssh>
             </netconf>
+
             <outbound-ssh>
               <client>
                 <name>oneconfig-ncd01</name>
@@ -69,6 +70,7 @@
                 </servers>
               </client>
             </outbound-ssh>
+
           </services>
         </system>
         <!--
